@@ -1,0 +1,35 @@
+name: Build PS Manikpur APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Build APK
+        run: |
+          echo "Preparing APK build"
+          mkdir -p output
+
+      - name: Upload files
+        uses: actions/upload-artifact@v4
+        with:
+          name: PS-Manikpur-Build
+          path: index.html
